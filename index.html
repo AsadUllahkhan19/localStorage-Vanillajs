@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./admin.css" />
+  </head>
+  <script>
+    function sub1() {
+      var ass = document.getElementById("pass").value;
+      var mai = document.getElementById("mail").value;
+      var fun2 = "admin";
+      var fun1 = "admin";
+      if ((mai === fun1) & (ass === fun2)) {
+        window.location.replace("home.html");
+      } else {
+        alert("Not A Admin");
+      }
+    }
+  </script>
+  <body>
+    <div class="form">
+        <span class="heading">Admin Login</span>
+      <input type="text" class="form__input" id="mail" placeholder="Enter Email" />
+      <input type="password" class="form__input"  id="pass" placeholder="Enter Password" />
+      <input type="button" class="btn" value="Submit" onclick="sub1()" />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./home.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <span class="heading">Admin Dashboard</span>
+    <input type="text" id="inp" class="input-text" placeholder="Enter First Name" />
+    <input type="text" id="in" class="input-text" placeholder="Enter Last Name" />
+    <input type="button" onclick="add()" value="submit" />
+    <input type="button" onclick="edit()" value="Edit" />
+    <input type="button" onclick="remove()" value="Delete" />
+    <table class="table" id="table">
+      <tr>
+        <td class="table-head">First Name</td>
+        <td class="table-head">Last Name</td>
+      </tr>
+      <tr>
+        <td class="table-cell">Ben</td>
+        <td class="table-cell">Zen</td>
+      </tr>
+      <tr>
+        <td class="table-cell">Ozil</td>
+        <td class="table-cell">Aizen</td>
+      </tr>
+    </table>
+    <script>
+      var rindex,
+        tab = document.getElementById("table");
+        document.getElementById("table").style.margin = "20px auto";
+      var arr = [];
+      function add() {
+        var obj = {
+          Name: document.getElementById("inp").value,
+          Last: document.getElementById("in").value,
+        };
+        arr.push(obj);
+        localStorage.Arrays = JSON.stringify(arr);
+        var row = tab.insertRow();
+        var first = row.insertCell(0);
+        var second = row.insertCell(1);
+        first.innerHTML = document.getElementById("inp").value;
+        second.innerHTML = document.getElementById("in").value;
+        document.getElementById("inp").value = "";
+        document.getElementById("in").value = "";
+
+        select();
+      }
+
+      function select() {
+        for (var i = 1; i < tab.rows.length; i++) {
+          tab.rows[i].onclick = function () {
+            rindex = this.rowIndex;
+            document.getElementById("inp").value = this.cells[0].innerHTML;
+            document.getElementById("in").value = this.cells[1].innerHTML;
+          };
+        }
+      }
+
+      function edit() {
+        var fname = document.getElementById("inp").value;
+        var Lname = document.getElementById("in").value;
+
+        tab.rows[rindex].cells[0].innerHTML = fname;
+        tab.rows[rindex].cells[1].innerHTML = Lname;
+
+        arr = JSON.parse(localStorage.Arrays);
+        for(i=0;i<arr.length;i++){
+            if(arr[i].Name === fname){
+                arr[i].Name = fname
+                arr[i].Last = Lname 
+            }
+        }
+
+        localStorage.Arrays = JSON.stringify(arr)
+        document.getElementById("inp").value = "";
+        document.getElementById("in").value = "";
+      }
+
+      function remove() {
+        var fname = document.getElementById("inp").value;
+        arr = JSON.parse(localStorage.Arrays);
+        const result = arr.filter((item)=>{
+            return fname !== item.Name
+        })
+        tab.deleteRow(rindex);
+        localStorage.Arrays = JSON.stringify(result);
+        document.getElementById("inp").value = "";
+        document.getElementById("in").value = "";
+      }
+    </script>
+  </body>
+</html>
